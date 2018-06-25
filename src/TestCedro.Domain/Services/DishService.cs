@@ -55,7 +55,7 @@ namespace TestCedro.Domain.Services
 
         public IEnumerable<Dish> GetPagination(int skip, int take, string search)
         {
-            throw new NotImplementedException();
+            return _dishRepository.GetPagination(skip, take, search);
         }
 
         public void Dispose()
