@@ -8,14 +8,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IO;
 using System.Net;
 using System.Text;
+using Swashbuckle.AspNetCore.Swagger;
 using TestCedro.Infra.CrossCutting.Helpers;
 using TestCedro.Infra.CrossCutting.IoC;
 using TestCedro.Infra.Data.Context;
 using TestCedro.Service.WebAPI.Auth;
 using TestCedro.Service.WebAPI.Extensions;
 using TestCedro.Service.WebAPI.Models;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace TestCedro.Service.WebAPI
 {
@@ -86,6 +89,29 @@ namespace TestCedro.Service.WebAPI
                 .AddJsonOptions(op =>
                     op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Configurando o serviço de documentação do Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new Info
+                    {
+                        Title = $"System {Constants.Strings.System.Name}",
+                        Version = "v1",
+                        Description = "Test para Cedro Technologies, REST API application criated with aspnet core 2 and entityframework core 2",
+                        Contact = new Contact
+                        {
+                            Name = "Oziel Guimarães ",
+                            Url = "http://ozielguimaraes.net"
+                        }
+                    });
+
+                var applicationBasePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var applicationName = PlatformServices.Default.Application.ApplicationName;
+                var xmlDocPath = Path.Combine(applicationBasePath, $"{applicationName}.xml");
+
+                c.IncludeXmlComments(xmlDocPath);
+            });
             RegisterServices(services);
         }
 
@@ -125,6 +151,12 @@ namespace TestCedro.Service.WebAPI
             //app.UseHttpsRedirection();
             DbInitializer.Initialize();
             app.UseMvc();
+            // Activating middlewares to use Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", Constants.Strings.System.Name);
+            });
         }
 
         private void RegisterServices(IServiceCollection services)

@@ -2,6 +2,9 @@
 
 namespace TestCedro.Service.WebAPI.ViewModels
 {
+    /// <summary>
+    /// Class used when the user is registering on the system.
+    /// </summary>
     public class RegisterVm
     {
         [Required]

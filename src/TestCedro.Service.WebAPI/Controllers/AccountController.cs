@@ -25,13 +25,6 @@ namespace TestCedro.Service.WebAPI.Controllers
             _userService = userService;
         }
 
-        [Route("signout")]
-        public dynamic Signout()
-        {
-            //Authentication.Signout();
-            return Ok();
-        }
-
         [HttpPost]
         [AllowAnonymous]
         [Route("signup")]

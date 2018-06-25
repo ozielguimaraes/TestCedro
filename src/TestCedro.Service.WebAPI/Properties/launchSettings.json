@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "v1/restaurant",
+      "launchUrl": "v1/restaurant/search",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "TestCedro.Service.WebAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "v1/restaurant",
+      "launchUrl": "v1/restaurant/search",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

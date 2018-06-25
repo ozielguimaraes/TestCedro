@@ -19,6 +19,12 @@ namespace TestCedro.Service.WebAPI.Controllers
         private readonly JwtIssuerOptions _jwtOptions;
         private readonly IUserService _userService;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jwtFactory">Jwt factory service, used to manipulate the jwt factory information</param>
+        /// <param name="jwtOptions">Jwt option service, used to manipulate the jwt options information</param>
+        /// <param name="userService">User service, used to manipulate the users information</param>
         public AuthController(IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IUserService userService)
         {
             _jwtFactory = jwtFactory;
@@ -26,8 +32,8 @@ namespace TestCedro.Service.WebAPI.Controllers
             _jwtOptions = jwtOptions.Value;
         }
 
-        // POST v1/auth/signin
-        [HttpPost("signin")]
+        // POST v1/auth/login
+        [HttpPost("login")]
         public async Task<IActionResult> Post([FromBody]LoginVm credentials)
         {
             if (!ModelState.IsValid)
@@ -38,7 +44,7 @@ namespace TestCedro.Service.WebAPI.Controllers
             var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
             if (identity == null)
             {
-                return BadRequest(Errors.AddErrorToModelState("login_failure", "Usuário ou senha incorreta.", ModelState));
+                return BadRequest(Errors.AddErrorToModelState("login_failure", "Usuï¿½rio ou senha incorreta.", ModelState));
             }
 
             var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, credentials.UserName, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
