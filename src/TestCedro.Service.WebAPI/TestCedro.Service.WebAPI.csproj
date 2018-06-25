@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TestCedro.Domain\TestCedro.Domain.csproj" />
+    <ProjectReference Include="..\TestCedro.Infra.Data\TestCedro.Infra.Data.csproj" />
+    <ProjectReference Include="..\TestCedro.Infra.CrossCutting.IoC\TestCedro.Infra.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\TestCedro.Infra.CrossCutting.Security\TestCedro.Infra.CrossCutting.Security.csproj" />
+    <ProjectReference Include="..\TestCedro.Infra.CrossCutting.Helpers\TestCedro.Infra.CrossCutting.Helpers.csproj" />
+    <ProjectReference Include="..\TestCedro.Infra.CrossCutting.Messages\TestCedro.Infra.CrossCutting.Messages.csproj" />
+  </ItemGroup>
+
+</Project>
