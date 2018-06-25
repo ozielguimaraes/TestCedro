@@ -15,7 +15,7 @@ namespace TestCedro.Infra.Data.Repositories
         public Guid GetUserIdFromPasswordResetToken(string token)
         {
             var user = DbSet.FirstOrDefault(x => x.PasswordVerificationToken == token);
-            return user != null ? user.UserId : Guid.Empty;
+            return user?.UserId ?? Guid.Empty;
         }
 
         public User GetUser(string email)
@@ -26,7 +26,7 @@ namespace TestCedro.Infra.Data.Repositories
         public Guid GetUserIdFromAccountConfirmationToken(string token)
         {
             var user = DbSet.FirstOrDefault(x => x.ConfirmationToken == token);
-            return user != null ? user.UserId : Guid.Empty;
+            return user?.UserId ?? Guid.Empty;
         }
 
         public bool EmailExists(string email)

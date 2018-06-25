@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using TestCedro.Domain.Entities;
 using TestCedro.Domain.Interfaces;
@@ -49,7 +50,7 @@ namespace TestCedro.Domain.Services
 
         public IEnumerable<Dish> Search(Expression<Func<Dish, bool>> predicate)
         {
-            return _dishRepository.Search(predicate);
+            return _dishRepository.Search(predicate).OrderBy(o => o.Name);
         }
 
         public IEnumerable<Dish> GetPagination(int skip, int take, string search)
